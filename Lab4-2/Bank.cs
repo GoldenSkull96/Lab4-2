@@ -20,12 +20,25 @@ namespace Lab4_2
             balance = value;
             this.day = day;
         }
-        public virtual void take_cash()
+        public virtual void take_cash(double value)
         {
             if (isBlocked)
             {
-                Console.WriteLine("");
+                Console.WriteLine("Любые действие с счетом заблокированы \n\rСвяжитесь с службой поддержки по номеру: +38(095)-682-78-99");
+                return;
             }
+            balance -= value;
+            Console.WriteLine($"Деньги были успешно извлечены \n\rТекущий баланс:{value:F2} грн");
+        }
+        public virtual void give_cash(double value)
+        {
+            if (isBlocked)
+            {
+                Console.WriteLine("Любые действие с счетом заблокированы \n\rСвяжитесь с службой поддержки по номеру: +38(095)-682-78-99");
+                return;
+            }
+            balance += value;
+            Console.WriteLine($"Деньги были успешно добавлены \n\rТекущий баланс:{value:F2} грн");
         }
     }
 }
