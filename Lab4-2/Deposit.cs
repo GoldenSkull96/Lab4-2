@@ -9,18 +9,22 @@ namespace Lab4_2
     internal class Deposit : Bank
     {
         private static double coef = 0.01;
-        public Deposit(string name, string id, double value, int day) : base(name, id, value, day)
+        public Deposit(string type, int count, string name, int id, double value, int day) : base(type, count, name, id, value, day)
         {
-            
+            Console.WriteLine("Счет был успешно оформлен");
         }
         private void days(int day)
         {
-            balance += balance * coef * (this.day - day);
+            if (Math.Abs(day) <this.day)
+            {
+                throw new ArgumentException("не корректная дата");
+            }
+            balance += balance * coef * (Math.Abs(day) - this.day);
         }
         public void check_balance(int day)
         {
             days(day);
-            Console.WriteLine($"За прошедшие {this.day-day} дней ваш баланс составляет:{balance:f2} грн");
+            Console.WriteLine($"За прошедшие {Math.Abs(day) - this.day} дней ваш баланс составляет:{balance:f2} грн");
             this.day = day;
         }
 

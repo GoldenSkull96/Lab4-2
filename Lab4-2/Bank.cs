@@ -9,14 +9,14 @@ namespace Lab4_2
     internal class Bank
     {
         protected int day;
-        private string id;
-        public string ID { get { return id; } }
+        private int id;
+        public int ID { get { return id; } }
         protected double balance;
         public double Balance { get { return balance; } }
         public bool isBlocked;
-        public Bank(string name, string id, double value, int day)
+        public Bank(string type, int count, string name, int id, double value, int day)
         {
-            this.id = id + name;
+            this.id = (id + name + count + type.GetHashCode()).GetHashCode();
             balance = value;
             this.day = day;
         }
@@ -27,8 +27,12 @@ namespace Lab4_2
                 Console.WriteLine("Любые действие с счетом заблокированы \n\rСвяжитесь с службой поддержки по номеру: +38(095)-682-78-99");
                 return;
             }
+            if (balance < value)
+            {
+                value = balance;
+            }
             balance -= value;
-            Console.WriteLine($"Деньги были успешно извлечены \n\rТекущий баланс:{value:F2} грн");
+            Console.WriteLine($"Деньги были успешно извлечены \n\rТекущий баланс:{balance:F2} грн");
         }
         public virtual void give_cash(double value)
         {
